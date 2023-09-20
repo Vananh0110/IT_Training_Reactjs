@@ -22,12 +22,14 @@
   .header__logo {
     width: 92px;
     height: auto;
+    margin-bottom: 55px;
   }
 
   .header__title {
     font-size: 38px;
     font-weight: 300;
     font-family: 'Open Sans', sans-serif;
+    margin-bottom: 50px;
   }
 
   .header .searchbox {
