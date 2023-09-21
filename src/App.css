@@ -19,6 +19,12 @@
     background-clip: border-box;
   }
 
+  h2 {
+    color: #21243d;
+    font-family: 'Hind', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
   .header__logo {
     width: 92px;
     height: auto;
@@ -111,3 +117,141 @@
   .searchbox-reset[hidden], .searchbox-loadingIndicator[hidden] {
     display: none;
   }
+
+.filter__header {
+  min-height: 80px;
+  display: flex;
+  display: -webkit-flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter__clear {
+  color: rgba(33, 36, 61, .7);
+  font-size: .75rem;
+  font-family: 'Open Sans', sans-serif;
+}
+.clear-filters {
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter__clear button {
+  background-color: transparent;
+  border: none;
+}
+
+.clear-filters svg {
+  margin: 8px;
+}
+
+
+.filter__title {
+  color: #21243d;
+  letter-spacing: .08rem;
+  text-transform: uppercase;
+  border: none;
+  padding-bottom: 1rem;
+  font-size: .678rem;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.filter__body .filter__panel {
+  border-top: 1px solid #ebecf3;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.product__view {
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-bottom: 1px solid #ebecf3;
+}
+
+.product__option {
+  position: relative;
+  margin-right: 30px;
+}
+.product__view option {
+  min-width: 100px;
+}
+.product__view select {
+  color: #21243d;
+  background: 0 0;
+  border: none;
+  font-family: inherit;
+  font-size: .75rem;
+}
+
+.product-list {
+  display: grid;
+  display: -webkit-grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+
+.hit {
+  color: #21243d;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.hit-image-container {
+  display: flex;
+  display: -webkit-flex;
+  height: 174px;
+  width: 174px;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.hit-image {
+  height: auto;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.hit-info-container {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.hit-category {
+  color: #21243d;
+  opacity: .7;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.hit h1 {
+  font-size: 14px;
+}
+
+.hit-description {
+  margin-top: 2px;
+}
+
+.hit-em {
+  color: #e2a400;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.hit-rating {
+  border: 1px solid rgba(226, 164, 0, 0.5);
+  border-radius: 4px;
+  margin-left: 4px;
+  padding: 0 4px;
+}
+
+
+
