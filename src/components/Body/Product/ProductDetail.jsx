@@ -1,31 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 const ProductDetail = ({ product }) => {
-  // const [categoryName, setCategoryName] = useState('');
-  // useEffect(() => {
-  //   const fetchCategories = async () => {
-  //     try {
-  //       const response = await fetch('http://localhost:3001/categories');
-
-  //       if(response.ok) {
-  //         const data = await response.json();
-
-  //         const matchingCategory = data.lv1.find(category => category.name === product.categories);
-
-  //       if(matchingCategory) {
-  //         setCategoryName(matchingCategory.name);
-  //         console.log(matchingCategory.name);
-  //       }
-  //       } else {
-  //         console.error('Failed to fetch categories from API');
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching categories', error);
-  //     }
-  //   };
-
-  //   fetchCategories();
-  // }, [product.categories]);
 
   return (
     <li className="hit-item">

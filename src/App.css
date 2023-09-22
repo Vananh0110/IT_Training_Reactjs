@@ -284,3 +284,83 @@
   background-color: #e2a400;
   background-image : linear-gradient(rgba(255, 255, 255, .34), rgba(255, 255, 255, 0))
 }
+
+.count {
+  color: rgba(33, 36, 61, .8);
+  letter-spacing: 1.1px;
+  background-color: rgba(65, 66, 71, .08);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+  padding: 0 4px;
+  font-size: .64rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.brand-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #21243d;
+  padding-bottom: 1rem;
+  cursor: pointer;
+}
+
+.brand-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  height: 1rem;
+  width: 1rem;
+  background-color: rgba(65, 66, 71,.08);
+  border: none;
+  margin: 0 1rem 0 0;
+  position: relative;
+  border-radius: 2px;
+}
+
+.brand-checkbox:checked:after {
+  content: "";
+  height: 4px;
+  width: 4px;
+  background-color: #fff;
+  border-radius: 4px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-2px, -2px);
+}
+
+.brand-checkbox:checked + .brand-name{
+  font-weight: 700;
+}
+
+.brand-checkbox:checked {
+  background-color: #e2a400;
+}
+
+.search-brand {
+  border: none;
+  background-color: rgba(65,66,71,.06);
+  width: 100%;
+  min-height: 40px;
+  border-radius: 3px;
+  font-size: .8rem;
+  font-family: 'Hind', sans-serif;
+  outline: none;
+  padding-left: 24px;
+  margin-bottom: 1.5rem;
+}
+
+.search-brand::placeholder, .search-brand::input {
+  color: rgba(33,36,61,.8);
+
+}
+
+.highlight-text {
+  background-color: #e2a400;
+
+}
+
+

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import FilterBrand from './FilterBrand';
 import FilterCategory from './FilterCategory';
 import FilterPrice from './FilterPrice';
 import FilterRating from './FilterRating';
-const FilterBar = () => {
+const FilterBar = ({ onFilterChange }) => {
   return (
     <>
     <div className="filter__header">
@@ -32,7 +32,7 @@ const FilterBar = () => {
         <div className="filter__title">
           BRANDS
         </div>
-        <FilterBrand />
+        <FilterBrand onFilterChange={onFilterChange} />
       </div>
       <div className="filter__panel">
         <div className="filter__title">

@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import ProductDetail from './ProductDetail';
 import Pagination from './Pagination';
 
-const ProductList = ({sortby, hitsperpage}) => {
+const ProductList = ({ sortby, hitsperpage, filteredBrands }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -10,13 +10,19 @@ const ProductList = ({sortby, hitsperpage}) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(' http://localhost:3001/products');
-        if(response.ok) {
+        const response = await fetch('http://localhost:3001/products');
+        if (response.ok) {
           const data = await response.json();
 
-          const sortedProducts = data.sort((a, b) => {
+          const filteredProducts = data.filter((product) =>
+            filteredBrands.length === 0
+              ? true
+              : filteredBrands.includes(product.manufacturer)
+          );
+
+          const sortedProducts = filteredProducts.sort((a, b) => {
             if (sortby === 'sortbyfeatured') {
-              return b.bestSellingRank - a.bestSellingRank;
+              return a.bestSellingRank - b.bestSellingRank;
             } else if (sortby === 'sortbypriceascending') {
               return a.salePrice - b.salePrice;
             } else if (sortby === 'sortbypricedescending') {
@@ -24,7 +30,7 @@ const ProductList = ({sortby, hitsperpage}) => {
             }
             return 0;
           });
-          
+
           setProducts(sortedProducts);
           setLoading(false);
         } else {
@@ -38,7 +44,6 @@ const ProductList = ({sortby, hitsperpage}) => {
     fetchProducts();
   }, [sortby, hitsperpage, currentPage]);
 
-
   useEffect(() => {
     setCurrentPage(1);
   }, [hitsperpage]);
@@ -47,10 +52,14 @@ const ProductList = ({sortby, hitsperpage}) => {
     setCurrentPage(page);
   };
 
+  const applyBrandFilter = (selectedBrands) => {
+    return products.filter((product) =>
+      selectedBrands.length === 0 || selectedBrands.includes(product.manufacturer)
+    );
+  };
 
-  const totalPages = Math.ceil(products.length / hitsperpage);
-
-  const visibleProducts = products.slice(
+  
+  const visibleProducts = applyBrandFilter(filteredBrands).slice(
     (currentPage - 1) * hitsperpage,
     currentPage * hitsperpage
   );
@@ -58,13 +67,18 @@ const ProductList = ({sortby, hitsperpage}) => {
   return (
     <>
       <div className="product-list list-unstyled">
-      {visibleProducts.map((product) => (
+        {visibleProducts.map((product) => (
           <ProductDetail key={product.id} product={product} />
         ))}
       </div>
-      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={Math.ceil(visibleProducts.length / hitsperpage)}
+        onPageChange={handlePageChange}
+      />
     </>
-  )
-}
+  );
+};
 
-export default ProductList
+export default ProductList;
+
