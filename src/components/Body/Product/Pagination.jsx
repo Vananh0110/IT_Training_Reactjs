@@ -1,59 +1,77 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import React, { useState, useEffect } from 'react';
+import ProductDetail from './ProductDetail';
+import Pagination from './Pagination';
 
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
-  const pageNumbers = [];
-  for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push(i);
-  }
+const ProductList = ({ sortby, hitsperpage, filteredBrands }) => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const pagesToShow = 5;
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/products');
+        if (response.ok) {
+          const data = await response.json();
 
-  const renderPageNumbers = () => {
-    const half = Math.floor(pagesToShow / 2);
-    const start = currentPage - half;
-    const end = currentPage + half;
+          const filteredProducts = data.filter((product) =>
+            filteredBrands.length === 0
+              ? true
+              : filteredBrands.includes(product.manufacturer)
+          );
 
-    if (currentPage <= half) {
-      return pageNumbers.slice(0, pagesToShow);
-    } else if (currentPage >= totalPages - half) {
+          const sortedProducts = filteredProducts.sort((a, b) => {
+            if (sortby === 'sortbyfeatured') {
+              return a.bestSellingRank - b.bestSellingRank;
+            } else if (sortby === 'sortbypriceascending') {
+              return a.salePrice - b.salePrice;
+            } else if (sortby === 'sortbypricedescending') {
+              return b.salePrice - a.salePrice;
+            }
+            return 0;
+          });
 
-      return pageNumbers.slice(totalPages - pagesToShow);
-    } else {
-      return pageNumbers.slice(start - 1, end);
-    }
+          setProducts(sortedProducts);
+          setLoading(false);
+        } else {
+          console.error('Failed to fetch data from Api');
+        }
+      } catch (error) {
+        console.error('Error fetching data', error);
+      }
+    };
+
+    fetchProducts();
+  }, [sortby, hitsperpage, currentPage, filteredBrands]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [hitsperpage]);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
+  const itemsPerPage = hitsperpage;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const visibleProducts = products.slice(startIndex, endIndex);
+
   return (
-    <div className="pagination">
-      {currentPage > 1 && (
-        <button
-          className="prev-button"
-          onClick={() => onPageChange(currentPage - 1)}
-        >
-          <FontAwesomeIcon icon={faChevronLeft} />
-        </button>
-      )}
-      {renderPageNumbers().map((pageNumber) => (
-        <button
-          key={pageNumber}
-          className={`page-number-button ${pageNumber === currentPage ? 'active' : ''}`}
-          onClick={() => onPageChange(pageNumber)}
-        >
-          {pageNumber}
-        </button>
-      ))}
-      {currentPage < totalPages && (
-        <button
-          className="next-button"
-          onClick={() => onPageChange(currentPage + 1)}
-        >
-          <FontAwesomeIcon icon={faChevronRight} />
-        </button>
-      )}
-    </div>
+    <>
+      <div className="product-list list-unstyled">
+        {visibleProducts.map((product) => (
+          <ProductDetail key={product.id} product={product} />
+        ))}
+      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={Math.ceil(products.length / itemsPerPage)}
+        onPageChange={handlePageChange}
+      />
+    </>
   );
 };
 
-export default Pagination;
+export default ProductList;
+

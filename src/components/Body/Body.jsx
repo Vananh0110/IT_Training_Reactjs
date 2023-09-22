@@ -6,6 +6,7 @@ import ProductList from './Product/ProductList'
 const Body = () => {
   const [sortby, setSortBy] = useState('sortbyfeatured');
   const [hitsperpage, setHitsPerPage] = useState(16);
+  const [filteredBrands, setFilteredBrands] = useState([]);
 
   const handleSortByChange = (e) => {
     setSortBy(e.target.value);
@@ -15,12 +16,16 @@ const Body = () => {
     const newValue = parseInt(e.target.value, 10);
     setHitsPerPage(newValue);
   }
+
+  const handleFilterChange = (selectedBrands) => {
+    setFilteredBrands(selectedBrands);
+  };    
   return (
     <>
     <div className="container">
         <div className="row">
         <div className="col-3">
-          <FilterBar />
+          <FilterBar onFilterChange={handleFilterChange} />
         </div>
         <div className="col-9">
           <div className="product__view">
@@ -39,7 +44,7 @@ const Body = () => {
               </select>
             </div>
           </div>
-            <ProductList sortby={sortby} hitsperpage={hitsperpage} />
+            <ProductList sortby={sortby} hitsperpage={hitsperpage} filteredBrands={filteredBrands}/>
         </div>
         </div>
     </div>
