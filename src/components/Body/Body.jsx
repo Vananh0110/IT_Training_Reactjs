@@ -39,7 +39,7 @@ const Body = () => {
               </select>
             </div>
           </div>
-            <ProductList />
+            <ProductList sortby={sortby} hitsperpage={hitsperpage} />
         </div>
         </div>
     </div>

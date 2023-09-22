@@ -253,5 +253,34 @@
   padding: 0 4px;
 }
 
+.pagination {
+  margin: 50px 0;
+  display: flex;
+  justify-content: center;
+  font-family: 'Open Sans', sans-serif;
+}
 
+.prev-button, .next-button {
+  color: #21243d;
+  background-color: transparent;
+  border: none;
+  font-size: 11px;
+  margin: 0 4px;
+}
 
+.page-number-button {
+  border: none;
+  margin: 0 4px;
+  height: 40px;
+  width: 40px;
+  border-radius: 4px;
+  color: #21243d;
+  font-size: 14px;
+}
+
+.active {
+  font-weight: 700;
+  color: #fff;
+  background-color: #e2a400;
+  background-image : linear-gradient(rgba(255, 255, 255, .34), rgba(255, 255, 255, 0))
+}
